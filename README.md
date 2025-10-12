@@ -1,682 +1,416 @@
-# Anonymous Sports Group Buying Platform
+# FHEVM SDK - Universal SDK for Confidential dApps
 
-A privacy-preserving sports equipment group purchasing platform powered by Zama's Fully Homomorphic Encryption (FHE) technology on Ethereum Sepolia testnet.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/@fhevm/sdk.svg)](https://www.npmjs.com/package/@fhevm/sdk)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
 
-[![Solidity](https://img.shields.io/badge/Solidity-0.8.24-blue.svg)](https://soliditylang.org/)
-[![Hardhat](https://img.shields.io/badge/Hardhat-2.22.0-yellow.svg)](https://hardhat.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+> **Universal SDK for building confidential dApps with Fully Homomorphic Encryption**
 
-## 🌐 Live Demo
+This project provides a framework-agnostic SDK that makes it simple, consistent, and developer-friendly to build privacy-preserving decentralized applications using Zama's FHEVM (Fully Homomorphic Encryption Virtual Machine).
 
-- **Web Application**: [https://fhe-sports-group-buying.vercel.app/](https://fhe-sports-group-buying.vercel.app/)
-- **GitHub Repository**: [https://github.com/HoraceBarrows/FHESportsGroupBuying](https://github.com/HoraceBarrows/FHESportsGroupBuying)
-- **Smart Contract**: [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431)
+## 🌐 Live Demo & Resources
 
-## 📹 Demo Video
-
-A complete demonstration video (`demo.mp4`) is included in this repository. **Please download the file to view it** as the video cannot be played directly in the browser.
-
-The demo showcases:
-- Product creation and browsing
-- Encrypted order placement
-- Privacy-preserving statistics
-- Order reveal functionality
-- Complete user workflow
+- **GitHub Repository**: [https://github.com/HoraceBarrows/fhevm-react-template](https://github.com/HoraceBarrows/fhevm-react-template)
+- **Live Demo Application**: [https://fhe-sports-group-buying.vercel.app/](https://fhe-sports-group-buying.vercel.app/)
+- **Demo Video**: The `demo.mp4` file in this repository contains a complete demonstration. **Please download the file to view it** as the video cannot be played directly in the browser.
 
 ## 🎯 Overview
 
-This decentralized application enables users to participate in group buying of sports equipment while maintaining complete privacy of their purchase quantities and amounts. Built with FHE technology, all sensitive transaction data is encrypted on-chain, ensuring that neither merchants nor other buyers can access individual purchase information.
+The FHEVM SDK is designed to be:
 
-## 🔐 Core Concepts
+- 🎯 **Framework Agnostic**: Works with Node.js, Next.js, Vue, React, or any frontend setup
+- 📦 **All-in-One**: Wraps all required packages - no scattered dependencies
+- 🪝 **wagmi-like API**: Familiar structure for web3 developers
+- 🚀 **Quick Setup**: Less than 10 lines of code to get started
+- 📚 **Well Documented**: Complete guides and examples
+- 🔒 **Type-Safe**: Full TypeScript support
 
-### FHE Contract: Anonymous Sports Equipment Group Buying
+## 🏗️ Project Structure
 
-This platform demonstrates the power of **Fully Homomorphic Encryption (FHE) smart contracts** for privacy-preserving e-commerce. The core innovation lies in combining group purchasing economics with cryptographic privacy guarantees.
-
-#### Privacy in Sports Equipment Procurement
-
-Traditional group buying platforms expose sensitive information:
-- Individual purchase quantities reveal team sizes
-- Spending patterns expose budget allocations
-- Bulk orders signal competitive strategies
-- Personal preferences become public data
-
-**Our FHE-based solution provides:**
-- **Quantity Privacy**: Purchase amounts remain encrypted on-chain
-- **Price Privacy**: Individual payments are cryptographically hidden
-- **Pattern Protection**: No behavioral analysis possible
-- **Fair Competition**: Equal pricing without information asymmetry
-
-### Fully Homomorphic Encryption (FHE)
-
-The platform leverages Zama's FHE technology to enable computations on encrypted data without decryption:
-
-**How It Works:**
-
-1. **Client-Side Encryption**:
-   - User encrypts purchase quantity locally
-   - FHE public key ensures only authorized decryption
-
-2. **Encrypted Storage**:
-   - All sensitive data stored as encrypted values (euint32, euint64)
-   - Smart contract never sees plaintext quantities
-
-3. **Homomorphic Operations**:
-   - Add encrypted quantities: `encryptedTotal = FHE.add(total, newOrder)`
-   - Compare encrypted values: `FHE.gte(quantity, minimum)`
-   - Compute statistics without revealing individual data
-
-4. **Selective Revelation**:
-   - Only order owner can decrypt their specific data
-   - Merchant sees aggregate statistics only
-   - Privacy maintained throughout entire lifecycle
-
-### Anonymous Group Purchasing
-
-**Traditional Group Buying Problems:**
 ```
-Alice orders 50 pairs of shoes → Everyone sees this
-Bob orders 100 jerseys → Competitors learn procurement strategy
-Carol orders 200 items → Price discrimination in future
+fhevm-react-template/
+├── packages/
+│   └── fhevm-sdk/              # Universal FHEVM SDK
+│       ├── src/
+│       │   ├── client.ts        # Core FHEVM client
+│       │   ├── init.ts          # Initialization utilities
+│       │   ├── encryption.ts    # Encryption/decryption functions
+│       │   ├── react.tsx        # React hooks
+│       │   ├── types.ts         # TypeScript definitions
+│       │   └── utils.ts         # Utility functions
+│       └── README.md
+│
+├── examples/
+│   ├── nextjs-app/              # Next.js 14 demo
+│   │   ├── app/
+│   │   │   ├── components/      # Demo components
+│   │   │   ├── layout.tsx       # Root layout
+│   │   │   ├── page.tsx         # Home page
+│   │   │   └── providers.tsx    # FHEVM provider
+│   │   └── README.md
+│   │
+│   └── sports-group-buying/     # Complete dApp example
+│       ├── contracts/           # Smart contracts
+│       ├── scripts/             # Deployment scripts
+│       ├── app/                 # Next.js frontend
+│       └── README.md
+│
+├── demo.mp4                     # Video demonstration (download to view)
+├── package.json                 # Workspace configuration
+└── README.md                    # This file
 ```
 
-**FHE Group Buying Solution:**
-```
-Alice orders ? pairs → Encrypted (only Alice can reveal)
-Bob orders ? jerseys → Encrypted (only Bob can reveal)
-Carol orders ? items → Encrypted (only Carol can reveal)
-System knows: Total = 350 items ✓ (computed on encrypted data)
-```
+## 📹 Demo Video
 
-**Benefits:**
-- **For Buyers**: Bulk pricing without exposing purchase volume
-- **For Teams**: Equipment procurement without revealing team size
-- **For Businesses**: Competitive protection of procurement strategies
-- **For Retailers**: GDPR-compliant privacy-preserving commerce
+A complete demonstration video (`demo.mp4`) is included in this repository showcasing:
+- SDK installation and setup process
+- Next.js demo application features
+- Sports group buying dApp walkthrough
+- Encryption and decryption demonstrations
+- Contract interaction examples
+- SDK integration in multiple frameworks
 
-## 🏗️ Smart Contract Architecture
+**⚠️ Important**: The video file must be downloaded to view it. Browser playback is not supported for the demo.mp4 file.
 
-### Contract Information
-
-**Network**: Sepolia Testnet
-**Contract Address**: `0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431`
-**Etherscan**: [View Contract](https://sepolia.etherscan.io/address/0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431)
-
-### Key Features
-
-#### Product Management
-- Create group buying campaigns with customizable parameters
-- Set minimum/maximum order quantities
-- Define deadlines for participation
-- Support multiple product categories (Footwear, Clothing, Equipment, Accessories, Fitness)
-
-#### Encrypted Order Placement
-- Orders encrypted using FHE before submission
-- Smart contract validates encrypted data without decryption
-- Automatic payment collection in encrypted form
-- One order per buyer per product (prevents gaming)
-
-#### Privacy-Preserving Statistics
-- View total number of participants (public)
-- Check if minimum quantity threshold reached (public)
-- Aggregate statistics computed on encrypted data
-- Individual contributions remain hidden
-
-#### Order Lifecycle
-```
-Create Product → Place Orders → Reach Target → Process → Selective Reveal
-   (Public)     (Encrypted)    (Computed)    (Fulfill)  (Optional)
-```
-
-## 🛠️ Technology Stack
-
-### Blockchain Layer
-- **Network**: Ethereum Sepolia Testnet
-- **Development Framework**: Hardhat v2.22.0
-- **Smart Contracts**: Solidity 0.8.24
-- **Encryption**: Zama FHEVM v0.5.0
-
-### Privacy Layer
-- **Encryption**: Zama fhEVM (Fully Homomorphic Encryption)
-- **Encrypted Types**: euint32, euint64, ebool
-- **Key Management**: On-chain FHE public keys
-- **Decryption**: EIP-712 signature-based selective revelation
-
-### Development Tools
-- **Testing**: Mocha + Chai + Hardhat Toolbox
-- **Verification**: Hardhat Verify Plugin
-- **Web3 Library**: Ethers.js v6.11.0
-- **Gas Optimization**: Solidity optimizer (800 runs)
-
-### Security & Quality
-- **Linting**: Solhint for Solidity, ESLint for JavaScript
-- **Formatting**: Prettier with Solidity plugin
-- **Pre-commit Hooks**: Husky + lint-staged
-- **CI/CD**: GitHub Actions with multiple Node.js versions
-- **Coverage**: 95%+ test coverage
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js v18 or higher
-- npm v9 or higher
-- MetaMask wallet
-- Sepolia testnet ETH ([Get from faucet](https://sepoliafaucet.com/))
-- Infura or Alchemy account (for RPC access)
-- Etherscan API key (for contract verification)
+## 🚀 Quick Start
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/HoraceBarrows/FHESportsGroupBuying.git
-   cd FHESportsGroupBuying
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment**
-   ```bash
-   cp .env.example .env
-   ```
-
-   Edit `.env` file with your credentials:
-   ```env
-   SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID
-   PRIVATE_KEY=your_private_key_here
-   ETHERSCAN_API_KEY=your_etherscan_api_key
-   CONTRACT_ADDRESS=0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431
-   ```
-
-### Compilation
-
-Compile the smart contracts:
-
 ```bash
-npm run compile
+# Clone the repository
+git clone https://github.com/HoraceBarrows/fhevm-react-template.git
+cd fhevm-react-template
+
+# Install all dependencies
+npm install
+
+# Build the SDK
+npm run build:sdk
 ```
 
-This generates:
-- Contract artifacts in `artifacts/`
-- TypeScript bindings (if configured)
-- ABI files for frontend integration
+### Running Examples
 
-### Testing
-
-Run the comprehensive test suite:
+#### Next.js Demo
 
 ```bash
-# Run all tests
-npm run test
-
-# Run with gas reporting
-npm run gas:report
-
-# Run with coverage
-npm run coverage
+npm run dev:nextjs
 ```
 
-Test coverage includes:
-- 45+ unit tests for local network
-- 6+ integration tests for Sepolia
-- Deployment, creation, ordering, and edge cases
-- Gas optimization verification
+The application will start and open in your browser.
 
-### Deployment
-
-Deploy to Sepolia testnet:
+#### Sports Group Buying Example
 
 ```bash
+# Deploy contract first
+cd examples/sports-group-buying
 npm run deploy
+
+# Start frontend
+npm run dev
 ```
 
-The deployment script will:
-- Check deployer balance
-- Deploy the contract
-- Wait for confirmations
-- Save deployment info to `deployments/sepolia.json`
-- Display contract address and Etherscan link
+The sports group buying dApp will start and open in your browser.
 
-For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)
+## 📚 Documentation
 
-### Verification
+### Core SDK Usage
 
-Verify the contract on Etherscan:
+#### Basic Setup (Node.js / JavaScript)
 
-```bash
-npm run verify
-```
+```typescript
+import { createFhevmInstance, encryptInput, decryptOutput } from '@fhevm/sdk';
+import { ethers } from 'ethers';
 
-This makes the source code publicly viewable and enables direct interaction through Etherscan's interface.
-
-### Interaction & Simulation
-
-**Basic interaction:**
-```bash
-npm run interact
-```
-
-This script demonstrates:
-- Creating products
-- Placing orders
-- Checking statistics
-- Reading product information
-
-**Full simulation:**
-```bash
-npm run simulate
-```
-
-The simulation creates multiple products and orders, demonstrating the complete workflow with detailed reporting.
-
-## 📊 Use Cases
-
-### Individual Athletes
-- **Privacy Protection**: Buy equipment without revealing training intensity
-- **Bulk Discounts**: Get group pricing for personal use
-- **Competitive Edge**: Keep gear choices confidential
-
-### Sports Teams
-- **Team Size Privacy**: Order uniforms without exposing roster size
-- **Budget Confidentiality**: Make bulk purchases without revealing budgets
-- **Strategic Procurement**: Keep equipment investments private from competitors
-
-### Sports Clubs & Organizations
-- **Member Privacy**: Aggregate orders without tracking individuals
-- **GDPR Compliance**: Enhanced privacy for EU members
-- **Fair Pricing**: Equal rates for all participants
-
-### Retailers & Distributors
-- **Privacy-Preserving Drop Shipping**: Facilitate bulk orders with buyer privacy
-- **Fair Competition**: Equal pricing without favoritism
-- **Anonymous B2B**: Enable bulk purchases while protecting buyer identity
-
-### Event Organizers
-- **Merchandise Sales**: Collect orders without revealing individual participation
-- **Group Registration**: Coordinate bulk sign-ups with privacy
-- **Sponsorship Protection**: Keep sponsor contribution levels confidential
-
-## 🔒 Security Features
-
-### Cryptographic Privacy
-- **FHE Encryption**: All sensitive data encrypted with homomorphic properties
-- **On-Chain Confidentiality**: No plaintext sensitive information stored
-- **Cryptographic Verification**: All operations provably correct
-- **Key Management**: Secure public key distribution
-
-### Access Control
-- **Owner Privileges**: Contract deployment and emergency functions
-- **Merchant Controls**: Product management and fund withdrawal
-- **Buyer Rights**: Order placement, cancellation, and selective reveal
-- **Role Separation**: Clear permission boundaries
-
-### Smart Contract Security
-- **Audited Libraries**: Built on Zama's security-reviewed FHE primitives
-- **Reentrancy Protection**: Checks-Effects-Interactions pattern
-- **Input Validation**: Comprehensive parameter checking
-- **Integer Safety**: Solidity 0.8+ built-in overflow protection
-- **Access Modifiers**: Proper function visibility and authorization
-
-### Operational Security
-- **Time-Bounded Campaigns**: Deadline-based order windows
-- **State Machine**: Clear order status progression
-- **Emergency Pause**: Circuit breaker for critical issues
-- **Fail-Safe Defaults**: Conservative security posture
-
-## 📝 Smart Contract Functions
-
-### Product Management
-
-```solidity
-// Create a new group buying product
-function createProduct(
-    string memory name,
-    string memory description,
-    uint256 unitPrice,
-    uint256 minOrderQuantity,  // Group target
-    uint256 maxOrderQuantity,
-    ProductCategory category,
-    uint256 deadline
-) external returns (uint256 productId)
-
-// Deactivate a product (merchant only)
-function deactivateProduct(uint256 productId) external
-
-// Get product information (public view)
-function getProductInfo(uint256 productId)
-    external view returns (
-        string memory name,
-        string memory description,
-        uint256 unitPrice,
-        uint256 minOrderQuantity,
-        uint256 maxOrderQuantity,
-        ProductCategory category,
-        uint256 deadline,
-        bool active,
-        uint256 currentOrders,
-        uint256 totalCollected
-    )
-```
-
-### Order Management
-
-```solidity
-// Place an encrypted order (payable)
-function placeOrder(uint256 productId, uint32 quantity)
-    external payable
-
-// Cancel a pending order (refunds payment)
-function cancelOrder(uint256 orderId) external
-
-// Reveal encrypted order details (owner only)
-function revealOrder(uint256 orderId) external
-
-// Get order information
-function getOrderInfo(uint256 orderId)
-    external view returns (
-        uint256 productId,
-        address buyer,
-        uint256 timestamp,
-        OrderStatus status,
-        bool isRevealed,
-        uint32 revealedQuantity,
-        uint64 revealedAmount
-    )
-```
-
-### Group Order Processing
-
-```solidity
-// Check if minimum target reached (public)
-function checkGroupTarget(uint256 productId)
-    public view returns (bool)
-
-// Process orders after target reached (merchant only)
-function processGroupOrder(uint256 productId) external
-
-// Get privacy-preserving statistics
-function getAnonymousStats(uint256 productId)
-    external view returns (
-        uint256 totalParticipants,  // Public
-        bool targetReached           // Public
-        // Individual amounts remain encrypted
-    )
-
-// Get all order IDs for a product
-function getProductOrders(uint256 productId)
-    external view returns (uint256[] memory)
-```
-
-### Fund Management
-
-```solidity
-// Withdraw collected funds (merchant only, after target)
-function withdrawFunds(uint256 productId) external
-
-// Emergency withdrawal (owner only)
-function emergencyWithdraw() external
-```
-
-## 📋 Deployment Information
-
-### Current Deployment
-
-- **Network**: Sepolia Testnet
-- **Contract Address**: `0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431`
-- **Compiler Version**: Solidity 0.8.24
-- **Optimizer**: Enabled (800 runs)
-- **EVM Version**: Cancun
-
-### Etherscan Links
-
-- **Contract Source**: [View Code](https://sepolia.etherscan.io/address/0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431#code)
-- **Read Functions**: [Query Contract](https://sepolia.etherscan.io/address/0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431#readContract)
-- **Write Functions**: [Execute Transactions](https://sepolia.etherscan.io/address/0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431#writeContract)
-
-## 📚 Available Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run compile` | Compile smart contracts |
-| `npm run test` | Run test suite (45+ tests) |
-| `npm run test:sepolia` | Run Sepolia integration tests |
-| `npm run coverage` | Generate test coverage report |
-| `npm run deploy` | Deploy to Sepolia testnet |
-| `npm run verify` | Verify contract on Etherscan |
-| `npm run interact` | Interact with deployed contract |
-| `npm run simulate` | Run automated simulation |
-| `npm run gas:report` | Generate gas usage report |
-| `npm run lint` | Lint JavaScript files |
-| `npm run lint:sol` | Lint Solidity files |
-| `npm run format` | Format all code |
-| `npm run security:check` | Run security audit |
-| `npm run validate` | Full validation (lint + test) |
-
-## 📖 Documentation
-
-Comprehensive documentation is available:
-
-- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Deployment guide and troubleshooting
-- **[TESTING.md](./TESTING.md)** - Testing strategy and test cases
-- **[CI_CD.md](./CI_CD.md)** - CI/CD pipeline and GitHub Actions
-- **[SECURITY_PERFORMANCE.md](./SECURITY_PERFORMANCE.md)** - Security audit and gas optimization
-- **[PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md)** - Complete implementation overview
-
-## 🔄 How It Works
-
-### Step 1: Product Creation
-
-A merchant creates a group buying campaign:
-
-```javascript
-await contract.createProduct(
-    "Premium Running Shoes",
-    "High-performance marathon shoes with carbon plate",
-    ethers.parseEther("0.01"),  // 0.01 ETH per pair
-    10,  // minimum 10 orders to activate
-    100, // maximum 100 orders
-    0,   // category: FOOTWEAR
-    Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60  // 7 days
+// 1. Initialize
+const provider = new ethers.JsonRpcProvider('YOUR_RPC_URL');
+const client = await createFhevmInstance(
+  {
+    chainId: 11155111,
+    rpcUrl: 'YOUR_RPC_URL',
+    gatewayUrl: 'https://gateway.zama.ai'
+  },
+  provider
 );
-```
 
-### Step 2: Encrypted Order Placement
+// 2. Encrypt data
+const encrypted = await encryptInput(100, 'uint32');
 
-Buyers place orders with quantities encrypted using FHE:
+// 3. Use in contract
+const contract = new ethers.Contract(address, abi, signer);
+await contract.placeOrder(productId, encrypted.data);
 
-```javascript
-const quantity = 5;  // This will be encrypted
-const unitPrice = ethers.parseEther("0.01");
-const totalAmount = unitPrice * BigInt(quantity);
-
-// Quantity is encrypted on-chain
-await contract.placeOrder(productId, quantity, {
-    value: totalAmount
+// 4. Decrypt results
+const decrypted = await decryptOutput({
+  contractAddress: address,
+  handle: '0x...',
+  userAddress: await signer.getAddress()
 });
 ```
 
-**What happens on-chain:**
-- Quantity encrypted as `euint32`
-- Amount encrypted as `euint64`
-- Both stored in encrypted state
-- Only aggregate statistics visible
+#### React Usage
 
-### Step 3: Privacy-Preserving Aggregation
+```tsx
+import { initializeFhevm, useEncryptedInput } from '@fhevm/sdk/react';
 
-The smart contract computes on encrypted data:
+// Initialize in app root
+function App() {
+  useEffect(() => {
+    initializeFhevm(
+      {
+        chainId: 11155111,
+        rpcUrl: process.env.NEXT_PUBLIC_RPC_URL
+      },
+      provider
+    );
+  }, []);
+}
 
-```solidity
-// Add encrypted quantities homomorphically
-stats.totalQuantity = FHE.add(stats.totalQuantity, encryptedQuantity);
+// Use in components
+function OrderForm() {
+  const { encrypted, encrypt } = useEncryptedInput('uint32');
 
-// Add encrypted amounts
-stats.totalCollectedAmount = FHE.add(
-    stats.totalCollectedAmount,
-    encryptedAmount
-);
-
-// Check target reached (public result from encrypted computation)
-bool targetReached = currentOrders >= minOrderQuantity;
+  const handleSubmit = async (quantity: number) => {
+    await encrypt(quantity);
+    await contract.placeOrder(productId, encrypted.data);
+  };
+}
 ```
 
-### Step 4: Order Processing
+### API Reference
 
-When minimum orders reached:
-- Merchant processes group order
-- Individual amounts remain encrypted
-- Fulfillment proceeds without revealing quantities
+#### Core Functions
 
-### Step 5: Selective Revelation (Optional)
+- `createFhevmInstance(config, provider)` - Create FHEVM client
+- `initializeFhevm(config, provider)` - Initialize global client
+- `encryptInput(value, type?)` - Encrypt single value
+- `encryptBatch(inputs)` - Encrypt multiple values
+- `decryptOutput(params)` - Decrypt contract output
 
-Buyers can decrypt their own orders when needed:
+#### React Hooks
 
-```javascript
-await contract.revealOrder(orderId);
-// Only the order owner can decrypt
-// Merchant and other buyers cannot see the quantity
+- `useFhevmInstance()` - Get FHEVM client
+- `useEncryptedInput(type?, options?)` - Hook for encryption
+- `useDecryption()` - Hook for decryption
+- `useFhevmContract(options)` - Get contract with FHE support
+- `useEncryptedState(contract, fn, args?, options?)` - Watch encrypted state
+
+#### Utility Functions
+
+- `formatHandle(handle)` - Format encrypted handle
+- `formatEther(wei)` - Format wei to ether
+- `isValidAddress(address)` - Validate Ethereum address
+- `formatCategory(category)` - Format product category
+- `formatOrderStatus(status)` - Format order status
+- `getTimeRemaining(deadline)` - Get time until deadline
+
+## 🎬 Video Demo
+
+See [demo.mp4](./demo.mp4) for a complete walkthrough showing:
+
+1. **SDK Setup**: Installing and initializing the FHEVM SDK
+2. **Encryption Demo**: Encrypting different data types
+3. **Decryption Demo**: Decrypting values with EIP-712 signatures
+4. **Contract Interaction**: Placing encrypted orders
+5. **Sports Group Buying**: Complete dApp demonstration
+6. **Multiple Frameworks**: SDK working in different environments
+
+## 🎨 Examples
+
+### Example 1: Next.js App (`examples/nextjs-app`)
+
+A comprehensive demo application showcasing:
+
+- ✅ FHEVM SDK integration with Next.js 14
+- ✅ RainbowKit wallet connection
+- ✅ Encryption/Decryption interactive demos
+- ✅ Contract interaction examples
+- ✅ Responsive UI with Tailwind CSS
+
+**Features:**
+- Encrypt uint32, uint64, bool, and address types
+- Decrypt encrypted values with signature
+- Submit encrypted transactions
+- Real-time status updates
+
+### Example 2: Sports Group Buying (`examples/sports-group-buying`)
+
+A production-ready dApp demonstrating:
+
+- ✅ Complete smart contract with FHE
+- ✅ Anonymous group purchasing
+- ✅ Encrypted order quantities
+- ✅ Privacy-preserving statistics
+- ✅ Selective order reveal
+
+**Use Case:**
+Merchants create group buying offers for sports equipment. Buyers place orders with encrypted quantities to maintain privacy. When the group target is reached, orders are processed without revealing individual amounts unless users choose to reveal.
+
+## 🔑 Key Features
+
+### For Developers
+
+- **Simple API**: Less than 10 lines to integrate
+- **Type Safety**: Full TypeScript support with detailed types
+- **Framework Agnostic**: Use with any JavaScript framework
+- **React Hooks**: wagmi-like hooks for React apps
+- **Error Handling**: Comprehensive error states and messages
+- **Loading States**: Built-in loading indicators
+
+### For Users
+
+- **Privacy First**: All sensitive data encrypted end-to-end
+- **Selective Reveal**: Users control what data to reveal
+- **Gas Efficient**: Optimized encryption operations
+- **Secure**: Battle-tested FHE encryption from Zama
+
+## 🏆 Evaluation Criteria Alignment
+
+### ✅ Usability
+
+- **Quick Setup**: <10 lines of code to start
+- **Minimal Boilerplate**: Import and use immediately
+- **Clear Documentation**: Extensive guides and examples
+- **Intuitive API**: Familiar patterns for web3 developers
+
+### ✅ Completeness
+
+- **Full FHEVM Flow**: Initialization, encryption, decryption, contracts
+- **React Hooks**: Complete hook library for React apps
+- **Utility Functions**: Helpers for common operations
+- **Error Handling**: Comprehensive error management
+
+### ✅ Reusability
+
+- **Modular Design**: Import only what you need
+- **Framework Agnostic**: Core works everywhere
+- **Adaptable Components**: Easy to customize
+- **Clean Architecture**: Separation of concerns
+
+### ✅ Documentation & Clarity
+
+- **Package README**: Detailed API reference
+- **Example READMEs**: Step-by-step guides
+- **Code Comments**: Inline documentation
+- **TypeScript Types**: Self-documenting interfaces
+- **Video Demo**: Visual walkthrough
+
+### ✅ Creativity
+
+- **Multiple Examples**: Next.js demo + complete dApp
+- **Real-World Use Case**: Sports group buying platform
+- **wagmi-like API**: Familiar developer experience
+- **Innovative Features**: Selective reveal, anonymous stats
+
+## 🛠️ Development
+
+### Build SDK
+
+```bash
+npm run build:sdk
 ```
 
-## 🎓 Educational Resources
+### Run Tests
 
-### Understanding FHE in Practice
-
-**What FHE Enables:**
-```solidity
-// Traditional approach (no privacy)
-uint256 quantity = 10;  // Anyone can see this
-
-// FHE approach (private)
-euint32 encryptedQuantity = FHE.asEuint32(10);  // Encrypted on-chain
-
-// Homomorphic addition
-euint32 total = FHE.add(quantity1, quantity2);  // Computed without decryption
-
-// Comparison without revealing values
-ebool isEnough = FHE.gte(total, minimum);  // Boolean result from encrypted data
+```bash
+npm run test:sdk
 ```
 
-**Privacy Benefits:**
+### Lint & Format
 
-| Aspect | Traditional | FHE-Based |
-|--------|------------|-----------|
-| Individual Quantities | ❌ Public | ✅ Private |
-| Total Orders | ✅ Countable | ✅ Countable |
-| Individual Amounts | ❌ Public | ✅ Private |
-| Target Reached | ✅ Checkable | ✅ Checkable |
-| Statistical Analysis | ❌ Possible | ✅ Prevented |
+```bash
+npm run lint
+npm run format
+```
 
-### Real-World Privacy Impact
+### Compile Contracts
 
-**Scenario**: A sports team orders 50 jerseys
+```bash
+npm run compile:contracts
+```
 
-**Without FHE:**
-- Competitors see team size
-- Future pricing affected
-- Procurement strategy exposed
-- Personal data collected
+### Deploy Example
 
-**With FHE:**
-- Team size remains private
-- No price discrimination
-- Strategy protected
-- GDPR compliance enhanced
+```bash
+npm run deploy:sports
+```
 
-## 🔮 Future Enhancements
+## 📋 Requirements Checklist
 
-### Planned Features
-- **Multi-tier Pricing**: Dynamic pricing based on encrypted quantity tiers
-- **Reputation System**: Privacy-preserving buyer/merchant ratings with ZK proofs
-- **Cross-chain Support**: Expand to other EVM-compatible chains with FHE
-- **Layer 2 Integration**: Deploy on L2 for reduced gas costs
-- **Mobile App**: Native iOS/Android with WalletConnect
+- ✅ **Universal SDK Package**: Framework-agnostic core in `packages/fhevm-sdk`
+- ✅ **Import to Any dApp**: Simple npm package installation
+- ✅ **Encryption & Decryption**: Complete utilities with EIP-712 support
+- ✅ **wagmi-like API**: React hooks with familiar structure
+- ✅ **Reusable Components**: Modular and composable
+- ✅ **Clean & Extensible**: Well-structured codebase
+- ✅ **Multiple Environments**: Next.js example + Sports dApp
+- ✅ **Clear Documentation**: Comprehensive guides
+- ✅ **Quick Setup**: Root installation, compilation, deployment
+- ✅ **Example Templates**: Next.js showcase included
 
-### Research Directions
-- **Advanced ZK Integration**: Combine FHE with zero-knowledge proofs
-- **Private Auctions**: Sealed-bid auctions with FHE
-- **Confidential Supply Chain**: End-to-end encrypted logistics
-- **Private Analytics**: Aggregate insights without individual data exposure
+## 🌐 Deployment Links
 
-## ⚠️ Important Notes
-
-### Development Status
-- ✅ Testnet deployment (Sepolia)
-- ✅ Full test coverage (95%+)
-- ✅ Security audit tools integrated
-- ⚠️ Not audited for mainnet production
-
-### Operational Considerations
-- FHE operations require more gas than standard transactions
-- Decryption involves EIP-712 signatures
-- Sepolia testnet required for full functionality
-- Test thoroughly before any production use
-
-### Known Limitations
-- FHE operations are computationally intensive
-- Higher gas costs than traditional contracts
-- Decryption requires off-chain oracle interaction
-- Limited to Sepolia testnet for now
-
-## 🌐 Links & Resources
-
-### Project Links
 - **Live Application**: [https://fhe-sports-group-buying.vercel.app/](https://fhe-sports-group-buying.vercel.app/)
-- **GitHub Repository**: [https://github.com/HoraceBarrows/FHESportsGroupBuying](https://github.com/HoraceBarrows/FHESportsGroupBuying)
-- **Smart Contract**: [Sepolia Etherscan](https://sepolia.etherscan.io/address/0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431)
+- **GitHub Repository**: [https://github.com/HoraceBarrows/fhevm-react-template](https://github.com/HoraceBarrows/fhevm-react-template)
+- **Smart Contract**: [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431)
 
-### Technology Documentation
-- **Zama FHEVM**: [https://docs.zama.ai/fhevm](https://docs.zama.ai/fhevm)
-- **Hardhat**: [https://hardhat.org/docs](https://hardhat.org/docs)
-- **Ethers.js**: [https://docs.ethers.org/v6/](https://docs.ethers.org/v6/)
-- **Solidity**: [https://docs.soliditylang.org/](https://docs.soliditylang.org/)
+## 📝 Deliverables
 
-### Community & Support
-- **Zama Discord**: [Join Community](https://discord.gg/zama)
-- **GitHub Issues**: [Report Issues](https://github.com/HoraceBarrows/FHESportsGroupBuying/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/HoraceBarrows/FHESportsGroupBuying/discussions)
-
-## 🙏 Acknowledgments
-
-- **Zama**: For pioneering FHE technology and building fhEVM
-- **Ethereum Foundation**: For Sepolia testnet infrastructure
-- **Hardhat Team**: For excellent development tools and documentation
-- **OpenZeppelin**: For security best practices and patterns
-- **Community**: For testing, feedback, and contributions
+1. ✅ **GitHub Repository**: Complete SDK with examples
+2. ✅ **Universal FHEVM SDK**: Framework-agnostic package
+3. ✅ **Next.js Template**: Interactive demo application
+4. ✅ **Sports Group Buying**: Production-ready dApp example
+5. ✅ **Video Demo**: `demo.mp4` - Download to view the complete walkthrough
+6. ✅ **README**: Comprehensive documentation
+7. ✅ **Live Deployment**: Application deployed at https://fhe-sports-group-buying.vercel.app/
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
-
-Ways to contribute:
-- 🐛 Report bugs and issues
-- 💡 Suggest new features
-- 📖 Improve documentation
-- 🧪 Add test cases
-- 🎨 Enhance UI/UX
-- 🔒 Security reviews
+Contributions are welcome! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
+## 🙏 Acknowledgments
+
+- [Zama](https://zama.ai) for FHEVM technology
+- [fhevmjs](https://github.com/zama-ai/fhevmjs) for JavaScript bindings
+- The Ethereum community for web3 standards
+- [wagmi](https://wagmi.sh) for API inspiration
+
+## 📞 Support
+
+- **Documentation**: [SDK Docs](./packages/fhevm-sdk/README.md)
+- **Examples**: [examples/](./examples/)
+- **Issues**: [GitHub Issues](https://github.com/HoraceBarrows/fhevm-react-template/issues)
+- **Discord**: [Zama Discord](https://discord.gg/zama)
+
+## 🗺️ Roadmap
+
+- [ ] Vue.js example integration
+- [ ] Vanilla Node.js example
+- [ ] Advanced caching mechanisms
+- [ ] Batch operation optimizations
+- [ ] Additional utility hooks
+- [ ] Performance benchmarks
+- [ ] More example dApps
+
 ---
 
-## 🎯 Project Summary
+## 🎬 Video Demo Instructions
 
-**FHE Contract: Anonymous Sports Equipment Group Buying - Privacy-Preserving Sports Equipment Procurement**
+The repository includes a comprehensive demonstration video (`demo.mp4`) that walks through:
+- Complete SDK setup and installation
+- Live demonstration of Next.js demo application
+- Sports group buying dApp features and functionality
+- Encryption and decryption workflows
+- Contract interaction examples
+- Multi-framework integration showcase
 
-This platform demonstrates the practical application of Fully Homomorphic Encryption in e-commerce, specifically addressing privacy concerns in group purchasing scenarios. By encrypting purchase quantities and amounts on-chain while still enabling aggregate computations, we achieve a breakthrough in privacy-preserving commerce.
-
-**Key Innovation**: Combining group buying economics with cryptographic privacy guarantees, enabling bulk discounts without information disclosure.
-
-**Built for privacy-conscious users, competitive businesses, and forward-thinking organizations.**
-
-*Protecting your data, one encrypted transaction at a time.*
+**Important Note**: Due to file format, the `demo.mp4` video must be downloaded from the repository to view. It cannot be played directly through web browser links. Please clone or download the repository to access the video file.
 
 ---
 
-**⚠️ Video Demo**: The `demo.mp4` file in this repository contains a complete demonstration. Please download the file to view it as browser playback is not supported.
+**Built with ❤️ for the FHEVM community**
 
+*Making confidential smart contracts accessible to every developer*
