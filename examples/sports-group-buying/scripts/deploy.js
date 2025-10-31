@@ -1,86 +1,93 @@
 const hre = require("hardhat");
+const fs = require("fs");
+const path = require("path");
 
 async function main() {
-  console.log("Deploying Anonymous Sports Voting contract...");
+  console.log("Starting deployment process...\n");
 
-  // Get the ContractFactory and Signers here.
+  // Get the deployer account
   const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying contracts with account:", deployer.address);
 
-  console.log("Deploying contracts with the account:", deployer.address);
-  console.log("Account balance:", (await deployer.provider.getBalance(deployer.address)).toString());
+  // Check deployer balance
+  const balance = await hre.ethers.provider.getBalance(deployer.address);
+  console.log("Account balance:", hre.ethers.formatEther(balance), "ETH\n");
+
+  if (balance === 0n) {
+    throw new Error("Deployer account has no ETH. Please fund the account first.");
+  }
 
   // Deploy the contract
-  const AnonymousSportsVoting = await hre.ethers.getContractFactory("AnonymousSportsVoting");
-  const votingContract = await AnonymousSportsVoting.deploy();
+  console.log("Deploying AnonymousSportsGroupBuying contract...");
+  const AnonymousSportsGroupBuying = await hre.ethers.getContractFactory("AnonymousSportsGroupBuying");
 
-  await votingContract.waitForDeployment();
+  const contract = await AnonymousSportsGroupBuying.deploy();
+  await contract.waitForDeployment();
 
-  const contractAddress = await votingContract.getAddress();
-  console.log("Anonymous Sports Voting contract deployed to:", contractAddress);
+  const contractAddress = await contract.getAddress();
+  console.log("✅ Contract deployed to:", contractAddress);
 
-  // Verify the contract on Etherscan if not on local network
-  if (hre.network.name !== "hardhat" && hre.network.name !== "localfhenix") {
-    console.log("Waiting for block confirmations...");
-    await votingContract.deploymentTransaction().wait(6);
+  // Get deployment transaction
+  const deploymentTx = contract.deploymentTransaction();
+  console.log("Deployment transaction hash:", deploymentTx.hash);
 
-    console.log("Verifying contract on Etherscan...");
-    try {
-      await hre.run("verify:verify", {
-        address: contractAddress,
-        constructorArguments: [],
-      });
-      console.log("Contract verified successfully");
-    } catch (error) {
-      console.log("Verification failed:", error.message);
-    }
+  // Wait for confirmations
+  console.log("\nWaiting for confirmations...");
+  await deploymentTx.wait(3);
+  console.log("✅ Confirmed!\n");
+
+  // Save deployment information
+  const deploymentInfo = {
+    network: hre.network.name,
+    contractAddress: contractAddress,
+    deployer: deployer.address,
+    deploymentTxHash: deploymentTx.hash,
+    timestamp: new Date().toISOString(),
+    blockNumber: deploymentTx.blockNumber,
+    chainId: (await hre.ethers.provider.getNetwork()).chainId.toString(),
+  };
+
+  const deploymentDir = path.join(__dirname, "..", "deployments");
+  if (!fs.existsSync(deploymentDir)) {
+    fs.mkdirSync(deploymentDir, { recursive: true });
   }
 
-  // Initialize with some sample data
-  console.log("\nInitializing with sample sports categories and candidates...");
+  const deploymentFile = path.join(deploymentDir, `${hre.network.name}.json`);
+  fs.writeFileSync(deploymentFile, JSON.stringify(deploymentInfo, null, 2));
+  console.log("📄 Deployment info saved to:", deploymentFile);
 
-  try {
-    // Add some sample candidates
-    const tx1 = await votingContract.addCandidate("Outstanding Athlete", "Best Performance");
-    await tx1.wait();
-    console.log("Added candidate 1: Outstanding Athlete");
+  // Display deployment summary
+  console.log("\n" + "=".repeat(60));
+  console.log("DEPLOYMENT SUMMARY");
+  console.log("=".repeat(60));
+  console.log("Network:", hre.network.name);
+  console.log("Contract Address:", contractAddress);
+  console.log("Deployer:", deployer.address);
+  console.log("Transaction Hash:", deploymentTx.hash);
+  console.log("Block Number:", deploymentTx.blockNumber);
+  console.log("Chain ID:", deploymentInfo.chainId);
+  console.log("=".repeat(60));
 
-    const tx2 = await votingContract.addCandidate("Rising Star", "Newcomer Award");
-    await tx2.wait();
-    console.log("Added candidate 2: Rising Star");
+  // Display next steps
+  console.log("\n📋 NEXT STEPS:");
+  console.log("1. Verify the contract:");
+  console.log(`   npm run verify`);
+  console.log("\n2. Interact with the contract:");
+  console.log(`   npm run interact`);
+  console.log("\n3. Update your .env file with:");
+  console.log(`   CONTRACT_ADDRESS=${contractAddress}`);
 
-    const tx3 = await votingContract.addCandidate("Team Player", "Team Spirit");
-    await tx3.wait();
-    console.log("Added candidate 3: Team Player");
-
-    const tx4 = await votingContract.addCandidate("Coach Excellence", "Leadership Award");
-    await tx4.wait();
-    console.log("Added candidate 4: Coach Excellence");
-
-    // Create a sample voting event
-    const candidateIds = [1, 2, 3, 4];
-    const tx5 = await votingContract.createVotingEvent(
-      "Annual Sports Awards 2024",
-      "Vote for the best performers in various sports categories this year",
-      candidateIds
-    );
-    await tx5.wait();
-    console.log("Created voting event: Annual Sports Awards 2024");
-
-    console.log("\nDeployment and initialization completed successfully!");
-    console.log("Contract functions available:");
-    console.log("- authorizeVoter(address): Grant voting permission");
-    console.log("- castVote(eventId, candidateId): Submit encrypted vote");
-    console.log("- getEventInfo(eventId): Get event details");
-    console.log("- getCandidateInfo(candidateId): Get candidate information");
-
-  } catch (error) {
-    console.log("Initialization failed:", error.message);
+  if (hre.network.name === "sepolia") {
+    console.log("\n4. View on Etherscan:");
+    console.log(`   https://sepolia.etherscan.io/address/${contractAddress}`);
   }
+  console.log("");
 }
 
 main()
   .then(() => process.exit(0))
   .catch((error) => {
+    console.error("\n❌ Deployment failed:");
     console.error(error);
     process.exit(1);
   });

@@ -1,30 +1,47 @@
 {
-  "name": "anonymous-sports-voting",
+  "name": "sports-group-buying-example",
   "version": "1.0.0",
-  "description": "Anonymous sports event voting system using Zama FHE",
+  "description": "Anonymous Sports Group Buying Platform - FHEVM SDK Example",
   "main": "index.js",
   "scripts": {
-    "compile": "npx hardhat compile",
-    "deploy": "npx hardhat run scripts/deploy.js --network sepolia",
-    "test": "npx hardhat test",
-    "node": "npx hardhat node"
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.js --network sepolia",
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001",
+    "lint": "next lint"
   },
   "keywords": [
-    "blockchain",
-    "sports",
-    "voting",
-    "privacy",
+    "fhevm",
     "fhe",
-    "zama"
+    "group-buying",
+    "sports",
+    "privacy",
+    "anonymous"
   ],
-  "author": "",
+  "author": "FHEVM SDK Team",
   "license": "MIT",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "hardhat": "^2.19.0"
-  },
   "dependencies": {
+    "@fhevm/sdk": "workspace:*",
     "@fhevm/solidity": "^0.5.0",
-    "dotenv": "^16.0.3"
+    "next": "^14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ethers": "^6.11.0",
+    "wagmi": "^2.5.0",
+    "@rainbow-me/rainbowkit": "^2.0.0",
+    "@tanstack/react-query": "^5.0.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "hardhat": "^2.22.0",
+    "typescript": "^5.3.0",
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0"
   }
 }

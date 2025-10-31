@@ -1,291 +1,243 @@
-# Sports Group Buying - FHEVM SDK Example
+# Anonymous Sports Group Buying Platform
 
-Anonymous sports equipment group purchasing platform powered by FHEVM SDK.
+A privacy-preserving sports equipment group purchasing platform powered by Zama's Fully Homomorphic Encryption (FHE) technology on Ethereum Sepolia testnet.
 
-## Overview
+## 🎯 Overview
 
-This example demonstrates a complete dApp built with the FHEVM SDK that enables:
+This decentralized application enables users to participate in group buying of sports equipment while maintaining complete privacy of their purchase quantities and amounts. Built with FHE technology, all sensitive transaction data is encrypted on-chain, ensuring that neither merchants nor other buyers can access individual purchase information.
 
-- 🛒 **Anonymous Group Buying**: Place orders with encrypted quantities
-- 🔒 **Privacy-Preserving**: Order details remain confidential using FHE
-- 👥 **Group Discounts**: Reach target thresholds for better prices
-- 🎯 **Target Tracking**: Monitor progress without revealing individual orders
-- 🔓 **Selective Reveal**: Users can reveal their orders when desired
+## 🔐 Core Concepts
 
-## Features
+### Fully Homomorphic Encryption (FHE)
 
-### Smart Contract (Solidity + FHEVM)
+The platform leverages Zama's FHE technology to enable computations on encrypted data without decryption. This means:
 
-- Product creation by merchants
-- Encrypted order placement
-- Group target tracking
-- Order reveal mechanism
-- Merchant fund withdrawal
-- Emergency pause functionality
+- **Encrypted Orders**: Purchase quantities and amounts are encrypted before being stored on-chain
+- **Private Aggregation**: The smart contract can compute total orders and collected amounts without revealing individual contributions
+- **Selective Revelation**: Only the buyer can decrypt and reveal their specific order details when needed
 
-### Frontend (Next.js + FHEVM SDK)
+### Anonymous Group Purchasing
 
-- Product browsing and filtering
-- Encrypted order submission
-- Order status tracking
-- Decryption and reveal
-- Real-time statistics
+Traditional group buying platforms expose purchase patterns and quantities, potentially revealing:
+- Individual spending habits
+- Bulk purchase strategies
+- Competitive intelligence for businesses
 
-## Getting Started
+Our FHE-based approach ensures:
+- **Quantity Privacy**: Your purchase amount remains encrypted
+- **Price Privacy**: Payment amounts are only visible to you
+- **Pattern Protection**: No one can analyze your buying behavior
+- **Fair Participation**: All participants benefit from group discounts without information asymmetry
 
-### 1. Install Dependencies
+## 🏗️ Smart Contract Architecture
 
-From the root directory:
-
-```bash
-npm install
+### Contract Address
+```
+Sepolia Testnet: 0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431
 ```
 
-### 2. Configure Environment
+### Key Features
 
-```bash
-cp .env.example .env
+**Product Management**
+- Create group buying campaigns with customizable parameters
+- Set minimum/maximum order quantities
+- Define deadlines for participation
+- Support multiple product categories (Footwear, Clothing, Equipment, Accessories, Fitness)
+
+**Encrypted Order Placement**
+- Orders are encrypted using FHE before submission
+- Smart contract validates encrypted data without decryption
+- Automatic payment collection in encrypted form
+
+**Privacy-Preserving Statistics**
+- View total number of participants (not individual identities)
+- Check if minimum quantity threshold is reached
+- Aggregate statistics computed on encrypted data
+
+## 🎬 Demo
+
+**Live Demo**: [https://anonymous-sports-group-buying.vercel.app/](https://anonymous-sports-group-buying.vercel.app/)
+
+**Demo Video**: [Watch AnonymousSportsGroupBuying.mp4](#) *(Coming soon)*
+
+### What You'll See
+
+1. **Connect Wallet**: Seamlessly connect your MetaMask to Sepolia testnet
+2. **Browse Products**: View active group buying campaigns
+3. **Place Orders**: Submit encrypted orders with complete privacy
+4. **Track Orders**: Monitor your orders (only you can see the details)
+5. **Create Campaigns**: Launch new group buying initiatives
+
+## 🛠️ Technology Stack
+
+### Blockchain
+- **Network**: Ethereum Sepolia Testnet
+- **Smart Contracts**: Solidity with Zama FHEVM
+- **Encryption**: Fully Homomorphic Encryption (FHE)
+
+### Frontend
+- **Framework**: Vanilla JavaScript
+- **Web3**: Ethers.js v5
+- **Styling**: Custom CSS with modern UI/UX
+
+### Privacy Layer
+- **Encryption**: Zama fhEVM
+- **Key Management**: On-chain FHE public keys
+- **Decryption**: Oracle-based selective revelation
+
+## 🚀 Getting Started
+
+### Prerequisites
+- MetaMask wallet installed
+- Sepolia testnet ETH (get from [faucet](https://sepoliafaucet.com/))
+
+### Quick Start
+
+1. **Visit the Platform**
+   ```
+   https://anonymous-sports-group-buying.vercel.app/
+   ```
+
+2. **Connect Your Wallet**
+   - Click "Connect Wallet"
+   - Approve the connection in MetaMask
+   - Switch to Sepolia testnet if prompted
+
+3. **Browse & Purchase**
+   - Browse available group buying campaigns
+   - Enter your desired quantity (kept private!)
+   - Submit your encrypted order
+
+4. **Create Your Own Campaign**
+   - Go to "Create Product" tab
+   - Fill in product details
+   - Set group buying parameters
+   - Launch the campaign
+
+## 📊 Use Cases
+
+### For Individual Buyers
+- **Bulk Discounts with Privacy**: Get group pricing without revealing purchase volume
+- **Competitive Protection**: Keep procurement strategies confidential
+- **Personal Privacy**: Prevent price discrimination based on buying patterns
+
+### For Sports Teams
+- **Equipment Procurement**: Order team gear without exposing team size
+- **Budget Confidentiality**: Make bulk purchases without revealing budgets
+- **Vendor Negotiations**: Leverage group buying without information leakage
+
+### For Retailers
+- **Anonymous Drop Shipping**: Facilitate bulk orders while protecting buyer privacy
+- **Fair Competition**: All participants get equal pricing without favoritism
+- **GDPR Compliance**: Enhanced privacy protection for EU customers
+
+## 🔒 Security Features
+
+### On-Chain Privacy
+- All order data encrypted with FHE
+- No plaintext sensitive information stored
+- Cryptographically verifiable computations
+
+### Access Control
+- Only buyers can decrypt their own orders
+- Contract owner cannot access individual order details
+- Time-based reveal mechanisms for dispute resolution
+
+### Smart Contract Security
+- Built on Zama's audited FHE libraries
+- Standard Solidity security patterns
+- Upgradeable contract architecture for bug fixes
+
+## 🌐 Links
+
+- **Live Platform**: [https://anonymous-sports-group-buying.vercel.app/](https://anonymous-sports-group-buying.vercel.app/)
+- **GitHub Repository**: [https://github.com/HoraceBarrows/AnonymousSportsGroupBuying](https://github.com/HoraceBarrows/AnonymousSportsGroupBuying)
+- **Smart Contract**: [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0xe434D59a1Cc2084672D4929dB9E3b8Af83f01431)
+- **Zama FHEVM Docs**: [https://docs.zama.ai/fhevm](https://docs.zama.ai/fhevm)
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Whether it's:
+- Bug reports and fixes
+- Feature suggestions
+- Documentation improvements
+- UI/UX enhancements
+
+Please feel free to open issues or submit pull requests on our [GitHub repository](https://github.com/HoraceBarrows/AnonymousSportsGroupBuying).
+
+## 📝 How It Works
+
+### Step 1: Product Creation
+A merchant or coordinator creates a group buying campaign:
+```javascript
+createProduct(name, description, unitPrice, minQuantity, maxQuantity, category, deadline)
 ```
 
-Edit `.env` with your configuration:
-
-```
-SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
-PRIVATE_KEY=your_private_key
-ETHERSCAN_API_KEY=your_api_key
-```
-
-### 3. Compile Contracts
-
-```bash
-npm run compile
+### Step 2: Encrypted Order Submission
+Buyers place orders with encrypted quantities:
+```javascript
+// Quantity is encrypted client-side before submission
+placeOrder(productId, encryptedQuantity)
 ```
 
-### 4. Deploy Contract
+### Step 3: Privacy-Preserving Aggregation
+The smart contract:
+- Accumulates encrypted orders
+- Computes total participants (public)
+- Checks if minimum threshold reached (public)
+- Keeps individual quantities private (encrypted)
 
-```bash
-npm run deploy
-```
+### Step 4: Selective Revelation
+When needed, buyers can:
+- Decrypt their own order details
+- Prove their participation
+- Request refunds if minimum not met
 
-This will:
-- Deploy the AnonymousSportsGroupBuying contract
-- Save deployment info to `deployments/sepolia.json`
-- Display contract address and Etherscan link
+## 🎓 Educational Resources
 
-### 5. Run Frontend
+### Understanding FHE
+Fully Homomorphic Encryption allows computations on encrypted data. In this platform:
+- Addition of encrypted values (total quantity calculation)
+- Comparison operations (threshold checks)
+- Conditional logic (campaign success/failure)
 
-```bash
-npm run dev
-```
+All without ever decrypting sensitive user data!
 
-Open [http://localhost:3001](http://localhost:3001)
+### Privacy Benefits
+Traditional group buying reveals:
+- ❌ Individual purchase amounts
+- ❌ Timing of purchases
+- ❌ Coordination between buyers
 
-## Architecture
+FHE-based approach protects:
+- ✅ Quantity privacy
+- ✅ Amount privacy
+- ✅ Participation patterns
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         Frontend                            │
-│  Next.js + FHEVM SDK + RainbowKit + Wagmi                  │
-└───────────────────┬─────────────────────────────────────────┘
-                    │ FHEVM SDK API
-                    │ (Encryption/Decryption)
-                    │
-┌───────────────────▼─────────────────────────────────────────┐
-│                    Smart Contract                           │
-│  AnonymousSportsGroupBuying.sol (Solidity 0.8.24)         │
-│  - FHE encrypted data types (euint32, euint64)             │
-│  - Privacy-preserving operations                            │
-└─────────────────────────────────────────────────────────────┘
-```
+## 🔮 Future Enhancements
 
-## FHEVM SDK Integration
+- **Multi-tier Pricing**: Automatic price adjustments based on encrypted total quantity
+- **Reputation System**: Privacy-preserving buyer/seller ratings
+- **Cross-chain Support**: Expand to other EVM chains with FHE support
+- **Mobile App**: Native mobile experience with WalletConnect
+- **Advanced Analytics**: Zero-knowledge proofs for aggregate statistics
 
-### Initialize SDK
+## ⚠️ Important Notes
 
-```typescript
-import { initializeFhevm } from '@fhevm/sdk';
+- This is a testnet deployment for demonstration purposes
+- Do not use real funds on mainnet without thorough auditing
+- FHE operations may take longer than standard transactions
+- Sepolia testnet required for full functionality
 
-await initializeFhevm(
-  {
-    chainId: 11155111,
-    rpcUrl: process.env.NEXT_PUBLIC_RPC_URL!,
-  },
-  walletClient
-);
-```
+## 🙏 Acknowledgments
 
-### Encrypt Order Quantity
+- **Zama**: For pioneering FHE technology and fhEVM
+- **Ethereum Foundation**: For Sepolia testnet infrastructure
+- **OpenZeppelin**: For secure smart contract libraries
+- **Community**: For testing and feedback
 
-```typescript
-import { useEncryptedInput } from '@fhevm/sdk/react';
+---
 
-function OrderForm() {
-  const { encrypted, encrypt } = useEncryptedInput('uint32');
+**Built with ❤️ for a privacy-first future in e-commerce**
 
-  const handleSubmit = async (quantity: number) => {
-    // Encrypt quantity
-    await encrypt(quantity);
-
-    // Submit to contract
-    await contract.placeOrder(productId, quantity, {
-      value: totalAmount
-    });
-  };
-}
-```
-
-### Decrypt Order Details
-
-```typescript
-import { useDecryption } from '@fhevm/sdk/react';
-
-function OrderDetails({ orderId }) {
-  const { decrypted, decrypt } = useDecryption();
-
-  const handleReveal = async () => {
-    await decrypt({
-      contractAddress: CONTRACT_ADDRESS,
-      handle: orderHandle,
-      userAddress: address
-    });
-  };
-
-  return <div>Quantity: {decrypted}</div>;
-}
-```
-
-## Smart Contract Functions
-
-### For Merchants
-
-- `createProduct()`: Create new group buying product
-- `processGroupOrder()`: Process orders after target reached
-- `withdrawFunds()`: Withdraw collected funds
-- `deactivateProduct()`: Deactivate a product
-
-### For Buyers
-
-- `placeOrder()`: Place order with encrypted quantity
-- `revealOrder()`: Reveal encrypted order details
-- `cancelOrder()`: Cancel pending order
-
-### View Functions
-
-- `getProductInfo()`: Get product details
-- `getOrderInfo()`: Get order information
-- `getAnonymousStats()`: Get aggregated statistics
-- `checkGroupTarget()`: Check if target reached
-
-## Contract Structure
-
-```solidity
-struct Product {
-    uint256 id;
-    string name;
-    uint256 unitPrice;
-    uint256 minOrderQuantity;  // Group target
-    uint256 maxOrderQuantity;
-    ProductCategory category;
-    uint256 deadline;
-    bool active;
-    address merchant;
-}
-
-struct GroupOrder {
-    uint256 id;
-    uint256 productId;
-    euint32 encryptedQuantity;    // FHE encrypted
-    euint64 encryptedTotalAmount; // FHE encrypted
-    address buyer;
-    OrderStatus status;
-    bool isRevealed;
-}
-
-struct AnonymousStats {
-    uint256 totalParticipants;
-    euint64 totalCollectedAmount; // FHE encrypted
-    euint32 totalQuantity;        // FHE encrypted
-    bool targetReached;
-}
-```
-
-## Product Categories
-
-- FOOTWEAR: Sports shoes, cleats
-- CLOTHING: Jerseys, shorts, jackets
-- EQUIPMENT: Balls, rackets, bats
-- ACCESSORIES: Bags, gloves, helmets
-- FITNESS: Weights, mats, bands
-
-## Testing
-
-```bash
-# Run tests
-npm run test
-
-# With gas reporting
-REPORT_GAS=true npm run test
-
-# Coverage
-npm run coverage
-```
-
-## Deployment
-
-### Sepolia Testnet
-
-1. Get Sepolia ETH from [faucet](https://sepoliafaucet.com/)
-2. Configure `.env` with private key
-3. Deploy:
-
-```bash
-npm run deploy
-```
-
-### Verify on Etherscan
-
-```bash
-npx hardhat verify --network sepolia DEPLOYED_ADDRESS
-```
-
-## Security Features
-
-- ✅ FHE encryption for sensitive data
-- ✅ Access control (owner, merchant, buyer)
-- ✅ Reentrancy protection
-- ✅ Input validation
-- ✅ Emergency pause
-- ✅ Secure fund withdrawal
-
-## Example Use Case
-
-1. **Merchant** creates a group buying offer:
-   - Product: "Premium Running Shoes"
-   - Unit Price: 0.01 ETH
-   - Min Quantity: 10 (to activate)
-   - Max Quantity: 100
-   - Deadline: 7 days
-
-2. **Buyers** place orders with encrypted quantities:
-   - Alice orders 5 pairs (encrypted)
-   - Bob orders 8 pairs (encrypted)
-   - Carol orders 12 pairs (encrypted)
-   - Total: 25 pairs (target reached! ✅)
-
-3. **Merchant** processes the group order after target is reached
-
-4. **Buyers** can reveal their orders when they choose:
-   - Alice reveals: 5 pairs
-   - Bob reveals: 8 pairs
-   - Carol keeps her order private
-
-## Resources
-
-- [FHEVM SDK Documentation](../../packages/fhevm-sdk/README.md)
-- [Smart Contract Code](./contracts/AnonymousSportsGroupBuying.sol)
-- [Deployment Guide](./DEPLOYMENT.md)
-- [Zama FHEVM Docs](https://docs.zama.ai)
-
-## License
-
-MIT
+*Protecting your data, one encrypted transaction at a time.*
