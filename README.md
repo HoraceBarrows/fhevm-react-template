@@ -40,21 +40,82 @@ fhevm-react-template/
 │       │   └── utils.ts         # Utility functions
 │       └── README.md
 │
-├── examples/
-│   ├── nextjs-app/              # Next.js 14 demo
+├── examples/                    # Complete example applications
+│   ├── nextjs-app/              # Next.js 14 comprehensive demo
 │   │   ├── app/
-│   │   │   ├── components/      # Demo components
+│   │   │   ├── api/             # API routes
+│   │   │   │   ├── fhe/         # FHE operations
+│   │   │   │   │   ├── route.ts
+│   │   │   │   │   ├── encrypt/route.ts
+│   │   │   │   │   ├── decrypt/route.ts
+│   │   │   │   │   └── compute/route.ts
+│   │   │   │   └── keys/route.ts
+│   │   │   ├── components/      # React components
+│   │   │   │   ├── ui/          # Base UI components
+│   │   │   │   │   ├── Button.tsx
+│   │   │   │   │   ├── Input.tsx
+│   │   │   │   │   └── Card.tsx
+│   │   │   │   ├── fhe/         # FHE components
+│   │   │   │   │   ├── FHEProvider.tsx
+│   │   │   │   │   ├── EncryptionDemo.tsx
+│   │   │   │   │   ├── DecryptionDemo.tsx
+│   │   │   │   │   ├── ComputationDemo.tsx
+│   │   │   │   │   ├── KeyManager.tsx
+│   │   │   │   │   └── ContractInteraction.tsx
+│   │   │   │   └── examples/    # Use case examples
+│   │   │   │       ├── BankingExample.tsx
+│   │   │   │       └── MedicalExample.tsx
+│   │   │   ├── hooks/           # Custom React hooks
+│   │   │   │   ├── useFHE.ts
+│   │   │   │   ├── useEncryption.ts
+│   │   │   │   └── useComputation.ts
+│   │   │   ├── lib/             # Library functions
+│   │   │   │   ├── fhe/         # FHE utilities
+│   │   │   │   │   ├── client.ts
+│   │   │   │   │   ├── server.ts
+│   │   │   │   │   ├── keys.ts
+│   │   │   │   │   └── types.ts
+│   │   │   │   └── utils/       # Helper utilities
+│   │   │   │       ├── security.ts
+│   │   │   │       └── validation.ts
+│   │   │   ├── types/           # TypeScript definitions
+│   │   │   │   ├── fhe.ts
+│   │   │   │   └── api.ts
 │   │   │   ├── layout.tsx       # Root layout
 │   │   │   ├── page.tsx         # Home page
-│   │   │   └── providers.tsx    # FHEVM provider
+│   │   │   ├── providers.tsx    # FHEVM provider
+│   │   │   └── globals.css      # Global styles
 │   │   └── README.md
 │   │
-│   └── sports-group-buying/     # Complete dApp example
-│       ├── contracts/           # Smart contracts
-│       ├── scripts/             # Deployment scripts
-│       ├── app/                 # Next.js frontend
+│   └── sports-group-buying/     # Production dApp example
+│       ├── contracts/           # Solidity smart contracts with FHE
+│       ├── scripts/             # Hardhat deployment scripts
+│       ├── app/                 # Next.js 14 React frontend
+│       │   ├── components/      # React components
+│       │   │   ├── Header.tsx
+│       │   │   ├── ProductBrowser.tsx
+│       │   │   ├── ProductCard.tsx
+│       │   │   ├── ProductCreator.tsx
+│       │   │   ├── OrdersList.tsx
+│       │   │   └── PrivacyNotice.tsx
+│       │   ├── layout.tsx       # Root layout with providers
+│       │   ├── page.tsx         # Main page
+│       │   ├── providers.tsx    # Wagmi/RainbowKit providers
+│       │   └── globals.css      # Application styles
+│       ├── hooks/               # Custom React hooks
+│       │   ├── useContract.ts   # Contract interaction hook
+│       │   └── useFHEVM.ts      # FHEVM SDK integration hook
+│       ├── lib/                 # Utility libraries
+│       │   ├── wagmi.ts         # Wagmi configuration
+│       │   ├── types.ts         # TypeScript types
+│       │   ├── toast.ts         # Toast notifications
+│       │   └── contractABI.ts   # Contract ABI
 │       └── README.md
 │
+├── templates/                   # Symlink to examples/
+├── docs/                        # Documentation
+│   ├── API.md                   # API reference
+│   └── ARCHITECTURE.md          # Architecture overview
 ├── demo.mp4                     # Video demonstration (download to view)
 ├── package.json                 # Workspace configuration
 └── README.md                    # This file
@@ -112,6 +173,14 @@ npm run dev
 The sports group buying dApp will start and open in your browser.
 
 ## 📚 Documentation
+
+For detailed documentation, see:
+
+- **[API Reference](./docs/API.md)** - Complete API documentation
+- **[Architecture Overview](./docs/ARCHITECTURE.md)** - Design and architecture details
+- **[SDK README](./packages/fhevm-sdk/README.md)** - SDK-specific documentation
+- **[Next.js Example README](./examples/nextjs-app/README.md)** - Next.js demo guide
+- **[Sports Buying README](./examples/sports-group-buying/README.md)** - Production dApp guide
 
 ### Core SDK Usage
 
@@ -220,30 +289,67 @@ See [demo.mp4](./demo.mp4) for a complete walkthrough showing:
 
 A comprehensive demo application showcasing:
 
-- ✅ FHEVM SDK integration with Next.js 14
+- ✅ FHEVM SDK integration with Next.js 14 App Router
+- ✅ Complete API routes for FHE operations (encrypt, decrypt, compute)
 - ✅ RainbowKit wallet connection
 - ✅ Encryption/Decryption interactive demos
+- ✅ Homomorphic computation demonstrations
+- ✅ Key management interface
 - ✅ Contract interaction examples
+- ✅ Real-world use case examples (Banking, Medical)
 - ✅ Responsive UI with Tailwind CSS
 
 **Features:**
-- Encrypt uint32, uint64, bool, and address types
-- Decrypt encrypted values with signature
-- Submit encrypted transactions
-- Real-time status updates
+- **Encryption Demo**: Encrypt uint8, uint16, uint32, uint64, bool, and address types
+- **Decryption Demo**: Decrypt encrypted values with EIP-712 signatures
+- **Computation Demo**: Perform operations on encrypted data (add, multiply, compare)
+- **Key Manager**: Generate and manage FHE encryption keys
+- **Banking Example**: Private balance management and transfers
+- **Medical Example**: Encrypted health records with privacy preservation
+- **Contract Interaction**: Submit encrypted transactions to smart contracts
+- **API Routes**: Server-side FHE operations endpoints
+
+**Structure:**
+- `/api/fhe/*` - FHE operation endpoints
+- `/components/ui/*` - Reusable UI components (Button, Input, Card)
+- `/components/fhe/*` - FHE-specific components
+- `/components/examples/*` - Use case demonstrations
+- `/hooks/*` - Custom React hooks (useFHE, useEncryption, useComputation)
+- `/lib/*` - Utility libraries and helpers
+- `/types/*` - TypeScript type definitions
 
 ### Example 2: Sports Group Buying (`examples/sports-group-buying`)
 
 A production-ready dApp demonstrating:
 
-- ✅ Complete smart contract with FHE
-- ✅ Anonymous group purchasing
-- ✅ Encrypted order quantities
-- ✅ Privacy-preserving statistics
-- ✅ Selective order reveal
+- ✅ **Complete Smart Contract with FHE**: Solidity contract using @fhevm/solidity library
+- ✅ **Next.js 14 React Frontend**: Modern React application with App Router
+- ✅ **Anonymous Group Purchasing**: Privacy-preserving group buying platform
+- ✅ **Encrypted Order Quantities**: All order data encrypted using FHEVM SDK
+- ✅ **Privacy-Preserving Statistics**: Aggregate data without revealing individual orders
+- ✅ **Selective Order Reveal**: Users control when to decrypt their data
+- ✅ **RainbowKit Wallet Integration**: Seamless wallet connection experience
+- ✅ **Custom React Hooks**: useContract and useFHEVM for easy integration
+- ✅ **TypeScript Throughout**: Full type safety across the application
+- ✅ **Hardhat Integration**: Complete smart contract development workflow
 
 **Use Case:**
-Merchants create group buying offers for sports equipment. Buyers place orders with encrypted quantities to maintain privacy. When the group target is reached, orders are processed without revealing individual amounts unless users choose to reveal.
+Merchants create group buying offers for sports equipment (footwear, clothing, equipment, accessories, fitness items). Buyers place orders with encrypted quantities and amounts to maintain complete privacy. When the group target is reached, orders are processed without revealing individual purchase amounts unless users explicitly choose to reveal their data.
+
+**Technical Stack:**
+- **Frontend**: Next.js 14, React 18, TypeScript, Tailwind CSS
+- **Smart Contracts**: Solidity 0.8.24, @fhevm/solidity, Hardhat
+- **FHE Integration**: @fhevm/sdk for encryption/decryption operations
+- **Wallet**: Wagmi 2.5, RainbowKit 2.0, ethers.js 6.11
+- **Network**: Sepolia testnet deployment-ready
+
+**Key Features:**
+- **Product Categories**: 5 sports categories with customizable products
+- **Encrypted Orders**: Quantities and amounts fully encrypted on-chain
+- **Group Targets**: Minimum order quantity thresholds for group buying
+- **Order Management**: Create, view, and cancel orders
+- **Real-time Updates**: Automatic refresh of products and orders
+- **Privacy Guarantees**: Complete anonymity until user chooses to reveal
 
 ## 🔑 Key Features
 
@@ -385,8 +491,85 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 - **Issues**: [GitHub Issues](https://github.com/HoraceBarrows/fhevm-react-template/issues)
 - **Discord**: [Zama Discord](https://discord.gg/zama)
 
+## 📁 Latest Updates
+
+### Sports Group Buying - Now Full React Application
+
+The `examples/sports-group-buying` project has been completely rewritten from static HTML to a modern Next.js 14 React application:
+
+#### Migration Highlights
+- **From Static HTML to React**: Complete conversion to component-based architecture
+- **FHEVM SDK Integration**: Deep integration with @fhevm/sdk for all encryption operations
+- **Custom Hooks**: useContract() and useFHEVM() hooks for seamless FHE operations
+- **TypeScript Throughout**: Full type safety with comprehensive type definitions
+- **Modern UI**: React components with proper state management and lifecycle handling
+- **RainbowKit Integration**: Professional wallet connection experience
+- **Improved UX**: Loading states, error handling, and toast notifications
+
+#### New Components
+- `Header.tsx`: Application header with wallet connection
+- `ProductBrowser.tsx`: Browse and search products with encrypted ordering
+- `ProductCard.tsx`: Individual product display with FHE encryption on order placement
+- `ProductCreator.tsx`: Form to create new group buying products
+- `OrdersList.tsx`: View user's encrypted orders with status tracking
+- `PrivacyNotice.tsx`: Privacy information display
+
+#### New Hooks
+- `useContract()`: Easy contract interaction with automatic signer setup
+- `useFHEVM()`: FHEVM instance management with automatic initialization
+
+#### New Libraries
+- `wagmi.ts`: Wagmi configuration for Sepolia testnet
+- `types.ts`: TypeScript interfaces for Product and Order entities
+- `toast.ts`: User notification system
+- `contractABI.ts`: Contract ABI and address configuration
+
+### Enhanced Next.js Example
+
+The `examples/nextjs-app` directory now includes a complete, production-ready structure:
+
+#### API Routes (`/app/api/`)
+- **FHE Operations**: Full REST API for encryption, decryption, and computation
+- **Key Management**: Endpoints for key generation and rotation
+- **Type Safety**: Full TypeScript support with proper error handling
+
+#### Component Library (`/app/components/`)
+- **UI Components**: Reusable Button, Input, Card components
+- **FHE Components**: Specialized components for FHE operations
+- **Example Components**: Real-world use cases (Banking, Medical)
+
+#### Custom Hooks (`/app/hooks/`)
+- **useFHE**: Core FHE operations hook
+- **useEncryption**: Encryption with state management
+- **useComputation**: Homomorphic computation hook
+
+#### Libraries (`/app/lib/`)
+- **FHE Client**: Client-side encryption operations
+- **FHE Server**: Server-side utilities and verification
+- **Key Management**: Key generation and storage
+- **Security Utils**: Input validation and sanitization
+- **Validation Utils**: Type checking and data validation
+
+#### Type Definitions (`/app/types/`)
+- **FHE Types**: Complete FHE operation types
+- **API Types**: Request/response interfaces
+
+### Documentation
+
+- **API.md**: Complete API reference with examples
+- **ARCHITECTURE.md**: System design and architecture overview
+
+### Templates Directory
+
+The `templates/` directory is now a symlink to `examples/`, following the bounty requirements for easy template access.
+
 ## 🗺️ Roadmap
 
+- [x] Complete Next.js example with full structure
+- [x] API routes for FHE operations
+- [x] Custom hooks library
+- [x] Real-world use case examples
+- [x] Comprehensive documentation
 - [ ] Vue.js example integration
 - [ ] Vanilla Node.js example
 - [ ] Advanced caching mechanisms
